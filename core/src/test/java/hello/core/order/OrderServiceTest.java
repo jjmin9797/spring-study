@@ -1,5 +1,6 @@
 package hello.core.order;
 
+import hello.core.AppConfig;
 import hello.core.member.Grade;
 import hello.core.member.Member;
 import hello.core.member.MemberService;
@@ -8,11 +9,12 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class OrderServiceTest {
-    MemberService memberService = new MemberServiceImpl();
-    OrderService orderService = new OrderServiceImpl();
+    private AppConfig appConfig = new AppConfig();
 
     @Test
     void createOrder() {
+        MemberService memberService = appConfig.memberService();
+        OrderService orderService = appConfig.orderService();
         Member member = createDummyMember();
         memberService.join(member);
         Order order = orderService.createOrder(member.getId(), "아이폰", 1750000);
